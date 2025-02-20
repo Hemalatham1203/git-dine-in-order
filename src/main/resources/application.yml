@@ -9,6 +9,6 @@ spring:
     password: Hema@120512
 
   jpa:
-    show-sql:
+    show-sql: true
     hibernate:
-      ddl-auto:update
+      ddl-auto: update
