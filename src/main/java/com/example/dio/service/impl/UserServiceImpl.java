@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     public User registerUser(User user) {
         User user2=this.createUserByRole(user.getRole());
 
-        this.mapToNewUser(user);
+        this.mapToNewUser(user,user2);
 
         return userRepository.save(user2);
     }
