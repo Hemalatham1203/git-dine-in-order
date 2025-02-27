@@ -16,10 +16,9 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     @Override
     public User registerUser(User user) {
-        User user2=this.createUserByRole(user.getRole());
+        User user2=createUserByRole(user.getRole());
 
         this.mapToNewUser(user,user2);
-
         return userRepository.save(user2);
     }
 
@@ -41,5 +40,7 @@ public class UserServiceImpl implements UserService {
         user2.setPhno(user.getPhno());
 
         }
-    }
+
+
+
 }
