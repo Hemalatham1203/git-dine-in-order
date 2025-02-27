@@ -7,4 +7,6 @@ import jakarta.persistence.Table;
 @Table(name="staffs")
 public class Staff extends User{
 
+
+
 }
