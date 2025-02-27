@@ -33,12 +33,13 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    private  void mapToNewUser(User user) {
-        User user2;
-        switch(user.getRole()){
-            case ADMIN -> user2=new Admin();
-            case STAFF -> user2= new Staff();
-            default -> throw new RuntimeException("Failed to register user, Invalid user type");
+    private  void mapToNewUser(User user,User user2) {
+        user2.setUsername(user.getUsername());
+        user2.setEmail(user.getEmail());
+        user2.setPassword(user.getPassword());
+        user2.setRole(user.getRole());
+        user2.setPhno(user.getPhno());
+
         }
     }
 }
