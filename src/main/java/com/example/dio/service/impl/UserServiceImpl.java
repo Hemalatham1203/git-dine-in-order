@@ -1,7 +1,11 @@
 package com.example.dio.service.impl;
 
+import com.example.dio.dto.request.RegistrationRequest;
+import com.example.dio.dto.request.UserRequest;
+import com.example.dio.dto.response.UserResponse;
 import com.example.dio.enums.UserRole;
 import com.example.dio.exception.UserNotFoundByIdException;
+import com.example.dio.mapper.UserMapper;
 import com.example.dio.model.Admin;
 import com.example.dio.model.Staff;
 import com.example.dio.model.User;
@@ -10,20 +14,23 @@ import com.example.dio.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
     @Override
-    public User registerUser(User user) {
-        User user2=createUserByRole(user.getRole());
-        this.mapToNewUser(user,user2);
+    public UserResponse registerUser(RegistrationRequest registrationRequest) {
+        User user=createUserByRole(registrationRequest.getRole());
+        userMapper.mapToUserEntity(registrationRequest,user);
 
-        return userRepository.save(user2);
+        this.userRepository.save(user);
+
+        return userMapper.mapToUserResponse(user);
     }
+
+
 
     private User createUserByRole(UserRole role){
         User user;
@@ -35,20 +42,24 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    private  void mapToNewUser(User user,User user2) {
-        user2.setUsername(user.getUsername());
-        user2.setEmail(user.getEmail());
-        user2.setPassword(user.getPassword());
-        user2.setRole(user.getRole());
-        user2.setPhno(user.getPhno());
 
-        }
         @Override
-        public User findUserById(long userId){
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundByIdException("Failed to find user, user not found by id"));
+        public UserResponse findUserById(long userId){
+             return userRepository.findById(userId)
+                     .map(userMapper::mapToUserResponse)
+                    .orElseThrow(() -> new UserNotFoundByIdException("Failed to find user, user not found by id"));
         }
 
+    @Override
+    public UserResponse updateUserById(UserRequest userRequest, long userId) {
+        return userRepository.findById(userId)
+                .map(exUser -> {
+                    userMapper.mapToUserEntity(userRequest, exUser);
+                    userRepository.save(exUser);
+                    return userMapper.mapToUserResponse(exUser);
+                })
+                .orElseThrow(() -> new UserNotFoundByIdException("Failed to update user, user not found by ID"));
+    }
 
 
 
