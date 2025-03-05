@@ -15,8 +15,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,7 +55,7 @@ public class UserController {
     })
     public ResponseEntity<ResponseStructure<UserResponse>> findUserById(@PathVariable long userId) {
         UserResponse response=userService.findUserById(userId);
-        return ResponseBuilder.success(HttpStatus.OK,"user Found", response);
+        return ResponseBuilder.ok( response,"user Found");
     }
 
     @PutMapping("/users/{userId}")
@@ -74,7 +72,7 @@ public class UserController {
 
     public ResponseEntity<ResponseStructure<UserResponse>> updateUserById(@RequestBody UserRequest userRequest,@PathVariable long userId){
         UserResponse response=userService.updateUserById(userRequest,userId);
-        return ResponseBuilder.success(HttpStatus.OK,"User Updated", response);
+        return ResponseBuilder.ok (response,"User Updated");
     }
 }
 
