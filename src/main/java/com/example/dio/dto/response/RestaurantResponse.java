@@ -7,17 +7,17 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+
 @Getter
 @Setter
 public class RestaurantResponse {
-
-    private long restaurantId;
 
     private String restaurantName;
 
     private String address;
 
-    private long contactNumber;
+    private String contactNumber;
 
     private String email;
 
@@ -25,10 +25,8 @@ public class RestaurantResponse {
 
     private LocalTime closeAt;
 
-    private DietType dietType;
+    private List<DietType> dietTypes;
 
-    private LocalDate createdAt;
-
-    private LocalDate lastModifiedAt;
+    private List<String> cuisineTypes;
 
 }
