@@ -3,7 +3,6 @@ package com.example.dio.controller;
 import com.example.dio.dto.request.RegistrationRequest;
 import com.example.dio.dto.request.UserRequest;
 import com.example.dio.dto.response.UserResponse;
-import com.example.dio.model.User;
 import com.example.dio.service.UserService;
 import com.example.dio.util.FieldErrorResponse;
 import com.example.dio.util.ResponseBuilder;
