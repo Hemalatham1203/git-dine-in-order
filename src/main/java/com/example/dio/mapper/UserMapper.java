@@ -6,7 +6,6 @@ import com.example.dio.dto.response.UserResponse;
 import com.example.dio.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
-import org.springframework.stereotype.Component;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
@@ -18,7 +17,6 @@ public interface UserMapper {
       UserResponse mapToUserResponse(User user);
 
     /**
-     *
      * @param registrationRequest containing user registration details (e.g., username, email, password) to be mapped to the User entity.
      * @param user entity that will be updated with the values from the registrationRequest.
      *  method doesn't return anything, it directly modifies the User entity passed in as a parameter.
@@ -26,7 +24,6 @@ public interface UserMapper {
      void mapToUserEntity(RegistrationRequest registrationRequest, @MappingTarget User user);
 
     /**
-     *
      * @param userRequest containing the user data (e.g., username, email, etc.) to be mapped to the existing User entity.
      * @param user entity that will be updated with the values from the userRequest. The @MappingTarget annotation indicates that this object will be modified by the mapping.
      */

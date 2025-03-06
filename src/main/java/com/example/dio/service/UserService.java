@@ -25,7 +25,6 @@ public interface UserService {
      * It helps to update the user specified data based on user id
      * @param userRequest  request of the user to update the existing user
      * @param userId user to return
-     * @return
      */
     UserResponse updateUserById(UserRequest userRequest,long userId);
 }
