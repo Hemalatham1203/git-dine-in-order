@@ -6,14 +6,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
 @Entity
-@Table(name="restaurant")
+@Table(name="restaurants")
 @Getter
 @Setter
 public class Restaurant {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name="restaurantId")
     private long restaurantId;
@@ -25,7 +27,7 @@ public class Restaurant {
     private String address;
 
     @Column(name="contact_number")
-    private long contactNumber;
+    private String contactNumber;
 
     @Column(name="email")
     private String email;
@@ -37,16 +39,20 @@ public class Restaurant {
     private LocalTime closeAt;
 
     @Column(name="diet_Type")
-    private List<DietType> dietType;
+    @Enumerated(EnumType.STRING)
+    private List<DietType> dietTypes;
 
     @Column(name="created_at")
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name="last_modified_at")
-    private LocalDate lastModifiedAt;
+    private LocalDateTime lastModifiedAt;
 
     @Column(name="cuisine_Type")
-    @ManyToMany
-    private List<String> cuisineTypes;
+    @ManyToMany(mappedBy = "restaurants",fetch = FetchType.EAGER)
+    private List<CuisineType> cuisineTypes;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Admin admin;
 
 }
