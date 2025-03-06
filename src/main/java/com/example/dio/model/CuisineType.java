@@ -13,10 +13,10 @@ import java.util.List;
 public class CuisineType {
     @Id
     @Column(name="cuisine")
-    private  String cuisine;
+    private  String cuisineType;
 
-    @ManyToMany(mappedBy = "restaurant", fetch = FetchType.EAGER)
-    private List<Restaurant> restaurant;
+    @ManyToMany
+    private List<Restaurant> restaurants;
 
 
 }
