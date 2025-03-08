@@ -57,8 +57,8 @@ public class UserServiceImpl implements UserService {
         * @return the user parent reference containing the user details.
          */
         @Override
-        public UserResponse findUserById(long userId){
-             return userRepository.findById(userId)
+        public UserResponse findUserById(User userId){
+             return userRepository.findById(userId.getUserId())
                      .map(userMapper::mapToUserResponse)
                     .orElseThrow(() -> new UserNotFoundByIdException("Failed to find user, user not found by id"));
         }
