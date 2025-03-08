@@ -2,6 +2,7 @@ package com.example.dio.model;
 
 import com.example.dio.enums.UserRole;
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -19,7 +19,7 @@ public interface UserService {
      * @param userId  to find user details
      * @return user reference containing user details
      */
-    UserResponse findUserById(long userId);
+    UserResponse findUserById(User userId);
 
     /**
      * It helps to update the user specified data based on user id

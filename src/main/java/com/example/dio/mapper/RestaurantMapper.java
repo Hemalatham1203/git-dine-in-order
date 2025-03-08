@@ -5,16 +5,17 @@ import com.example.dio.dto.response.RestaurantResponse;
 import com.example.dio.model.CuisineType;
 import com.example.dio.model.Restaurant;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface RestaurantMapper {
 
     /**
      *This method is responsible for mapping a RestaurantRequest object (which typically contains data entered by the user) to a RestaurantEntity object.
-     * @param registrationRequest contains information about the restaurant, such as its name, location, menu items, etc., submitted by the user.
+     * @param restaurantRequest contains information about the restaurant, such as its name, location, menu items, etc., submitted by the user.
      * @return RestaurantEntity object that represents the restaurant's data in a format suitable for storage in a database.
      */
-    Restaurant mapToRestaurantEntity(RestaurantRequest registrationRequest);
+    Restaurant mapToRestaurantEntity(RestaurantRequest restaurantRequest);
 
     /**
      *The purpose of these method is to convert the database entity into a form that can be sent back to the client, usually containing only the necessary fields.
@@ -32,7 +33,7 @@ public interface RestaurantMapper {
         if (cuisineType == null) {
             return null;
         }
-        return cuisineType.getCuisineType();
+        return cuisineType.getCuisineTypes();
     }
 
     /**
@@ -45,7 +46,7 @@ public interface RestaurantMapper {
             return null;
         }
         CuisineType cuisine = new CuisineType();
-        cuisine.setCuisineType(cuisineType);
+        cuisine.setCuisineTypes(cuisineType);
         return cuisine;
     }
 }

@@ -3,6 +3,7 @@ package com.example.dio.controller;
 import com.example.dio.dto.request.RegistrationRequest;
 import com.example.dio.dto.request.UserRequest;
 import com.example.dio.dto.response.UserResponse;
+import com.example.dio.model.User;
 import com.example.dio.service.UserService;
 import com.example.dio.util.FieldErrorResponse;
 import com.example.dio.util.ResponseBuilder;
@@ -52,7 +53,7 @@ public class UserController {
                             @Content(schema = @Schema(implementation = FieldErrorResponse.class))
                     })
     })
-    public ResponseEntity<ResponseStructure<UserResponse>> findUserById(@PathVariable long userId) {
+    public ResponseEntity<ResponseStructure<UserResponse>> findUserById(@PathVariable User userId) {
         UserResponse response=userService.findUserById(userId);
         return ResponseBuilder.ok( response,"user Found");
     }

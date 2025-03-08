@@ -2,6 +2,7 @@ package com.example.dio.model;
 
 import com.example.dio.enums.DietType;
 import jakarta.persistence.*;
+import com.example.dio.model.Tables;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,9 +12,9 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Entity
-@Table(name="restaurants")
 @Getter
 @Setter
+@Table(name="restaurants")
 public class Restaurant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -49,10 +50,13 @@ public class Restaurant {
     private LocalDateTime lastModifiedAt;
 
     @Column(name="cuisine_Type")
-    @ManyToMany(mappedBy = "restaurants",fetch = FetchType.EAGER)
+    @ManyToMany()
     private List<CuisineType> cuisineTypes;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Admin admin;
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<Tables> tables;
 
 }
