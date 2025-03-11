@@ -12,11 +12,15 @@ import java.util.List;
 @Getter
 @Setter
 public class CuisineType {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name="cuisine")
     private  String cuisineTypes;
 
     @ManyToMany(mappedBy ="cuisineTypes",fetch = FetchType.EAGER)
     private List<Restaurant> restaurants;
+
+    @OneToMany(mappedBy = "cuisineType")
+    private List<FoodItem> foodItems;
 
 }
