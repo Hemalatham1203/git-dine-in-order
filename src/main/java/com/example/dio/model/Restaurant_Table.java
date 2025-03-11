@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name="restaurant_tables")
-public class Tables {
+public class Restaurant_Table {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name="table_id")
