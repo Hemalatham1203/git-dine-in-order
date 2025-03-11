@@ -1,9 +1,9 @@
 package com.example.dio.repository;
 
-import com.example.dio.model.Restaurant_Table;
+import com.example.dio.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TableRepository extends JpaRepository<Restaurant_Table,Long> {
+public interface CategoryRepository extends JpaRepository<Category,String> {
 }
