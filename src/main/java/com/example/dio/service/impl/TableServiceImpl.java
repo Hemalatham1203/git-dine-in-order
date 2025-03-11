@@ -3,10 +3,9 @@ package com.example.dio.service.impl;
 import com.example.dio.dto.request.TableRequest;
 import com.example.dio.dto.response.TableResponse;
 import com.example.dio.exception.RestaurantNotFoundByIdException;
-import com.example.dio.exception.UserNotFoundByIdException;
 import com.example.dio.mapper.TableMapper;
 import com.example.dio.model.Restaurant;
-import com.example.dio.model.Tables;
+import com.example.dio.model.Restaurant_Table;
 import com.example.dio.repository.RestaurantRepository;
 import com.example.dio.repository.TableRepository;
 import com.example.dio.service.TableService;
@@ -33,7 +32,7 @@ public class TableServiceImpl implements TableService {
         Restaurant foundRestaurant = restaurantRepository.findById(restaurantId.getRestaurantId())
                 .orElseThrow(() -> new RestaurantNotFoundByIdException("Restaurant Not Found By Id "));
 
-        Tables tables = tableMapper.mapToTableEntity(tableRequest);
+        Restaurant_Table tables = tableMapper.mapToTableEntity(tableRequest);
         tables.setRestaurant(foundRestaurant);
 
         tableRepository.save(tables);
