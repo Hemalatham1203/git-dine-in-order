@@ -2,9 +2,11 @@ package com.example.dio.model;
 
 import com.example.dio.enums.DietType;
 import jakarta.persistence.*;
-import com.example.dio.model.Tables;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,6 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name="restaurants")
+@EntityListeners(AuditingEntityListener.class)
 public class Restaurant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -43,20 +46,25 @@ public class Restaurant {
     @Enumerated(EnumType.STRING)
     private List<DietType> dietTypes;
 
+    @CreatedDate
     @Column(name="created_at")
     private LocalDateTime createdAt;
 
+    @LastModifiedDate
     @Column(name="last_modified_at")
     private LocalDateTime lastModifiedAt;
 
     @Column(name="cuisine_Type")
-    @ManyToMany()
+    @ManyToMany
     private List<CuisineType> cuisineTypes;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Admin admin;
 
     @OneToMany(mappedBy = "restaurant")
-    private List<Tables> tables;
+    private List<Restaurant_Table> tables;
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<FoodItem> foodItems;
 
 }
