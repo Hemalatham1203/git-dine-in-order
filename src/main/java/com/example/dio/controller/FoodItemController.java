@@ -3,6 +3,7 @@ package com.example.dio.controller;
 import com.example.dio.dto.request.FoodItemRequest;
 import com.example.dio.dto.response.FoodItemResponse;
 import com.example.dio.model.FoodItem;
+import com.example.dio.model.Restaurant;
 import com.example.dio.service.FoodItemService;
 import com.example.dio.util.FieldErrorResponse;
 import com.example.dio.util.ResponseBuilder;
@@ -61,6 +62,24 @@ public class FoodItemController {
 
         return ResponseEntity.status(HttpStatus.FOUND)
                 .body(ResponseStructure.create(HttpStatus.FOUND,"Food Items found",foodItemResponses));
+    }
+
+
+    @Operation(
+            description = "Fetch all food items for a specific restaurant",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "List of food items retrieved successfully"),
+                    @ApiResponse(responseCode = "400", description = "Invalid restaurant ID", content = {
+                            @Content(schema = @Schema(implementation = FieldErrorResponse.class))
+                    }),
+                    @ApiResponse(responseCode = "404", description = "Restaurant not found", content = {
+                            @Content(schema = @Schema(implementation = FieldErrorResponse.class))
+                    })
+            })
+    @GetMapping("/foodItems/restaurant/{restaurantId}")
+    public ResponseEntity<ResponseStructure<List<FoodItemResponse>>> getAllFoodItems(@PathVariable("restaurantId")long restaurantId){
+        List<FoodItemResponse> responses=foodItemService.getFoodItemsByRestaurant(restaurantId);
+        return ResponseBuilder.ok(responses,"fetch all food items based on restaurant id");
     }
 
 }
