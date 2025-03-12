@@ -59,4 +59,7 @@ public class FoodItem {
 
     @ManyToMany
     private List<Category> categories;
+
+    @OneToMany(mappedBy = "foodItem")
+    private List<CartItem> cartItems;
 }

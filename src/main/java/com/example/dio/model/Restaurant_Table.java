@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -26,5 +28,8 @@ public class Restaurant_Table {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Restaurant restaurant;
+
+    @OneToOne
+    private CartItem cartItem;
 
 }
