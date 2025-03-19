@@ -10,7 +10,9 @@ public class TableResponse {
 
     private long tableId;
 
+    private int tableNo;
+
     private int tableCapacity;
 
-    private TableStatus tableStatus;
+    private  TableStatus tableStatus;
 }
