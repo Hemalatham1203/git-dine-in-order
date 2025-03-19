@@ -15,7 +15,7 @@ public class RegistrationRequest {
 
     @NotNull(message="userName cannot be null ")
     @NotBlank(message="userName cannot be blank")
-    @Pattern(regexp = "^[a-zA-Z0-9_]+$",message ="UserName can only contains alphabets, numbers and underscore")
+    @Pattern(regexp = "^[a-zA-Z_]+$",message ="UserName can only contains alphabets and underscore")
     private  String username;
 
     @NotNull(message="Email cannot be null")
@@ -23,7 +23,7 @@ public class RegistrationRequest {
     @Pattern(regexp = "^[a-zA-Z0-9._-]+@gmail.com$")
     private String email;
 
-    @Pattern(regexp = "^(?=.*[a-z])(/=.*[A-Z])(?=.*d)(?=.*[&*^%$#@!+-_]).{8,12}$",message="Password must contain at least one lowercase letter, upper case letter, number,special character among them")
+    @Pattern(regexp = "^[a-zA-Z0-9@#$%&]{8,12}$",message="Password must contain at least one lowercase letter, upper case letter, number,special character among them")
     @NotNull(message="password can not be null")
     @NotBlank(message="password cannot be blank")
     private String password;
