@@ -11,8 +11,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TableRequest {
-    @NotNull(message="Table number cannot be null ")
-    private int tableNo;
 
     @NotNull(message="Table capacity cannot be null ")
     @Min(value = 1, message = "Table capacity must be at least 1")
