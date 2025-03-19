@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    //private final PasswordEncoder passwordEncoder;
 
     /**
      * It helps to user to register for Either of the role Admin or Staff
@@ -30,11 +31,16 @@ public class UserServiceImpl implements UserService {
     public UserResponse registerUser(RegistrationRequest registrationRequest) {
         User user=createUserByRole(registrationRequest.getRole());
         userMapper.mapToUserEntity(registrationRequest,user);
-
+//        this.encryptPassword(user);
         this.userRepository.save(user);
 
         return userMapper.mapToUserResponse(user);
     }
+
+//    private void encryptPassword(User user){
+//       String encodePassword=passwordEncoder.encode(user.getPassword());
+//       user.setPassword(encodePassword);
+//    }
 
     /**
      * Produces and return child instance of the user based on User role.
