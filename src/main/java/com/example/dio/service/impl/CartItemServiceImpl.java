@@ -7,7 +7,7 @@ import com.example.dio.model.FoodItem;
 import com.example.dio.model.Restaurant_Table;
 import com.example.dio.repository.CartItemRepository;
 import com.example.dio.repository.FoodItemRepository;
-import com.example.dio.repository.TableRepository;
+import com.example.dio.repository.RestaurantTableRepository;
 import com.example.dio.service.CartItemService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class CartItemServiceImpl implements CartItemService {
     private final CartItemRepository cartItemRepository;
     private final CartItemMapper cartItemMapper;
     private final FoodItemRepository foodItemRepository;
-    private final TableRepository tableRepository;
+    private final RestaurantTableRepository restaurantTableRepository;
 
     @Override
     public CartItemResponse createCartItem(long itemId, long tableId, int quantity) {
@@ -28,23 +28,33 @@ public class CartItemServiceImpl implements CartItemService {
         FoodItem foodItem = foodItemRepository.findById(itemId)
                 .orElseThrow(() -> new RuntimeException("Food item not found"));
 
-        Restaurant_Table restaurantTable = tableRepository.findById(tableId)
-                .orElseThrow(() -> new RuntimeException("Table not found by Id"));
+        Restaurant_Table restaurantTable = restaurantTableRepository.findById(tableId)
+                .orElseThrow(() -> new RuntimeException("Table not found by Id"+tableId));
 
-        CartItem cartItem = cartItemRepository.save(getCartItem(quantity, foodItem, restaurantTable));
+        CartItem cartItem=new CartItem();
         cartItem.setFoodItem(foodItem);
         cartItem.setRestaurantTable(restaurantTable);
+        cartItem.setQuantity(quantity);
+        cartItem.setTotalPrice(calculateTotalPrice(foodItem,quantity));
+        cartItemRepository.save(cartItem);
+
+        return cartItemMapper.mapToCartItemResponse(cartItem);
+
+    }
+
+    @Override
+    public CartItemResponse updateCartItemQuantity(Long cartId, int newQuantity) {
+        CartItem cartItem=cartItemRepository.findById(cartId)
+                .orElseThrow(()->new RuntimeException("Cart item not found with id: "+cartId));
+        cartItemRepository.updateQuantityByCartItemId(cartId,newQuantity);
+        cartItem.setCartId(newQuantity);
+        cartItem.setTotalPrice(calculateTotalPrice(cartItem.getFoodItem(),newQuantity));
         return cartItemMapper.mapToCartItemResponse(cartItem);
     }
 
-    public CartItemResponse updateQuantity(long cartId, int quantity) {
-        CartItem cartItem = cartItemRepository.findById(cartId)
-                .orElseThrow(() -> new RuntimeException("cart Item not found with Id" + cartId));
+    public double calculateTotalPrice(FoodItem foodItem,int quantity){
+        return foodItem.getPrice()*quantity;
 
-        cartItem.setQuantity(quantity);
-        cartItem.setTotalPrice(cartItem.getFoodItem().getPrice() * quantity);
-
-        return cartItemMapper.mapToCartItemResponse(cartItemRepository.save(cartItem));
     }
 
     private static CartItem getCartItem(int quantity, FoodItem foodItem, Restaurant_Table restaurantTable) {
