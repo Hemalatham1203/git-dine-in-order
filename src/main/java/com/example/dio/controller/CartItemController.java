@@ -12,8 +12,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -61,10 +59,10 @@ public class CartItemController {
                     })
             }
     )
-    @PatchMapping("cartItems/{cartId}")
-    public ResponseEntity<ResponseStructure<CartItemResponse>> updateQuantity(@PathVariable long cartId, @RequestParam Long foodItemId, @RequestParam int quantity){
-        CartItemResponse cartItemResponse=cartItemService.updateQuantity(cartId,quantity);
-        return  ResponseBuilder.ok(cartItemResponse,"Food item added to the cart successfully");
+    @PatchMapping("cartItems/{cartItemId}")
+    public ResponseEntity<ResponseStructure<CartItemResponse>> updateCartItemQuantity(@PathVariable Long cartItemId,@RequestParam("quantity") int newQuantity){
+        CartItemResponse cartItemResponse=cartItemService.updateCartItemQuantity(cartItemId,newQuantity);
+        return ResponseBuilder.ok(cartItemResponse,"cart item quantity updated");
     }
 
 }
