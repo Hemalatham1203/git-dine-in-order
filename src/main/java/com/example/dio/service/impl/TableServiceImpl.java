@@ -7,7 +7,7 @@ import com.example.dio.mapper.TableMapper;
 import com.example.dio.model.Restaurant;
 import com.example.dio.model.Restaurant_Table;
 import com.example.dio.repository.RestaurantRepository;
-import com.example.dio.repository.TableRepository;
+import com.example.dio.repository.RestaurantTableRepository;
 import com.example.dio.service.TableService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class TableServiceImpl implements TableService {
 
-    private TableRepository tableRepository;
+    private RestaurantTableRepository restaurantTableRepository;
     private RestaurantRepository restaurantRepository;
     private TableMapper tableMapper;
 
@@ -35,8 +35,17 @@ public class TableServiceImpl implements TableService {
         Restaurant_Table tables = tableMapper.mapToTableEntity(tableRequest);
         tables.setRestaurant(foundRestaurant);
 
-        tableRepository.save(tables);
+        // Set tableNo (logic inside service class)
+        tables.setTableNo(generateNextTableNo(foundRestaurant.getRestaurantId()));
+
+        restaurantTableRepository.save(tables);
         return tableMapper.mapToTableResponse(tables);
 
+    }
+
+    // Method to generate the next table number
+    private int generateNextTableNo(long restaurantId) {
+        Integer maxTableNo = restaurantTableRepository.findMaxTableNoByRestaurant(restaurantId);
+        return (maxTableNo == null) ? 1 : maxTableNo + 1;
     }
 }
