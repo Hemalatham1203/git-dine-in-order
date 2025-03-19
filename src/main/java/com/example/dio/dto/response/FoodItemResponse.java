@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class FoodItemResponse {
+    private long itemId;
 
     private String name;
 
@@ -21,9 +22,4 @@ public class FoodItemResponse {
 
     private DietType dietType;
 
-    private String cuisineType;
-
-    private LocalDateTime createdAt;
-
-    private LocalDateTime lastModifiedAt;
 }
