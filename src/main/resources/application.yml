@@ -14,3 +14,5 @@ spring:
       ddl-auto: update
 app:
   base-url: /api/v1
+
+

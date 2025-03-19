@@ -21,8 +21,8 @@ public interface CartItemService {
     /**
      * Updates the quantity of an existing cart item.
      * @param cartId   The ID of the cart item to be updated.
-     * @param quantity The new quantity of the food item.
+     * @param newQuantity The new quantity of the food item.
      * @return The updated cart item response.
      */
-    public CartItemResponse updateQuantity(long cartId,int quantity);
+    CartItemResponse updateCartItemQuantity(Long cartId, int newQuantity);
 }

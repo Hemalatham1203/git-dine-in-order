@@ -27,7 +27,7 @@ import java.util.List;
 @Tag(name="FoodItem Controller",description = "Collection API Endpoints dealing Food Items in a restaurant.")
 public class FoodItemController {
 
-    private FoodItemService foodItemService;
+    private final FoodItemService foodItemService;
 
 
     @Operation(description = "Create a new FoodItem ",
@@ -76,7 +76,7 @@ public class FoodItemController {
                             @Content(schema = @Schema(implementation = FieldErrorResponse.class))
                     })
             })
-    @GetMapping("/foodItems/restaurant/{restaurantId}")
+    @GetMapping("/restaurant/{restaurantId}/foodItems")
     public ResponseEntity<ResponseStructure<List<FoodItemResponse>>> getAllFoodItems(@PathVariable("restaurantId")long restaurantId){
         List<FoodItemResponse> responses=foodItemService.getFoodItemsByRestaurant(restaurantId);
         return ResponseBuilder.ok(responses,"fetch all food items based on restaurant id");

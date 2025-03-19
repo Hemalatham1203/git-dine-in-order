@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name="restaurant_tables")
+@Table(name = "restaurant_tables")
 public class Restaurant_Table {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -24,12 +24,19 @@ public class Restaurant_Table {
     private int tableCapacity;
 
     @Column(name="status")
+    @Enumerated(EnumType.STRING)
     private TableStatus tableStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Restaurant restaurant;
 
-    @OneToOne
-    private CartItem cartItem;
+    @OneToMany(mappedBy = "restaurantTable")
+    private List<CartItem> cartItem;
+
+    @OneToMany(mappedBy = "restaurantTable")
+    private List<Food_Order> Orders;
+
+    @OneToMany(mappedBy = "restaurantTable")
+    private List<CartItem> cartItems;
 
 }
