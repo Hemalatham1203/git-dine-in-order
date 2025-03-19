@@ -27,9 +27,10 @@ public class CartItem {
     @Column(name="isOrdered")
     private boolean isOrdered;
 
-    @OneToOne
+    @ManyToOne
     private Restaurant_Table restaurantTable;
 
     @ManyToOne
     private FoodItem foodItem;
+
 }
