@@ -12,7 +12,6 @@ import java.util.List;
 @Getter
 @Setter
 public class CuisineType {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name="cuisine")
     private  String cuisineTypes;
